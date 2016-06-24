@@ -1,1 +1,4 @@
-# Pos-seed-0444
+POS-Seed
+========
+
+Seed project for POS terminal
