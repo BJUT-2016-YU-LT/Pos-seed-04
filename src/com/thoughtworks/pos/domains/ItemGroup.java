@@ -32,8 +32,12 @@ public class ItemGroup {
 
     public double subTotal() {
         double result = 0.00;
-        for (Item item : items)
-            result += item.getPrice() * item.getDiscount();
+        for (Item item : items) {
+            if(Pos.VIPactive)
+                result += item.getPrice() * item.getDiscount()*item.getVipDiscount();
+            else
+                result += item.getPrice() * item.getDiscount();
+        }
         if(GroupIsPromotion()&&groupSize()>=2)
             result-=groupPrice();
         return result;
@@ -41,8 +45,12 @@ public class ItemGroup {
 
     public double saving() {
         double result = 0.00;
-        for (Item item : items)
-            result += item.getPrice() * (1 - item.getDiscount());
+        for (Item item : items) {
+            if(Pos.VIPactive)
+      result+=item.getPrice()*(1-item.getDiscount()*item.getVipDiscount());
+            else
+                result+=item.getPrice()*(1-item.getDiscount());
+        }
         if(GroupIsPromotion()&&groupSize()>=2)
             result+=groupPrice();
         return result;

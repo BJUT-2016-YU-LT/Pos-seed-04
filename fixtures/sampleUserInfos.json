@@ -1,0 +1,16 @@
+{
+  'USER0001': {
+    "name": 'USER 001',
+    "isVIP": true,
+    "points":300
+  },
+  'USER0002': {
+    "name": 'USER 002',
+    "isVIP": false
+  },
+  'USER0003': {
+    "name": 'USER 003',
+    "isVIP": true,
+    "points":500
+  }
+}

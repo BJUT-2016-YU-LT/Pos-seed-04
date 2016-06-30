@@ -1,7 +1,21 @@
 {
-  "ITEM000004": {
-    "name": '电池',
-    "unit": '个',
+    "ITEM000004": {
+        "name": '电池',
+        "unit": '个',
+        "price": 2.00,
+        "discount": 0.8,
+        "vipDiscount":0.9
+    },
+    "ITEM000003": {
+        "name": '可乐',
+        "unit": '瓶',
+        "price": 3.00,
+        "isPromotion": true
+
+    },
+    "ITEM000001": {
+    "name": '雪碧',
+    "unit": '瓶',
     "price": 2.00,
     "discount": 0.8
   }

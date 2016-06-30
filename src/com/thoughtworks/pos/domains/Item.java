@@ -10,6 +10,8 @@ public class Item {
     private double price;
     private double discount;
     private boolean isPromotion=false;
+    private double vipDiscount;
+
 
 
     public Item() {
@@ -31,6 +33,11 @@ public class Item {
         this(barcode, name, unit, price);
         this.setPromotion(isPromotion);
     }
+    public Item(String barcode, String name, String unit, double price, double discount,double vipDiscount) {
+        this(barcode, name, unit, price);
+        this.setDiscount(discount);
+        this.setVipDiscount(vipDiscount);
+    }
 
     public String getName() {
         return name;
@@ -49,6 +56,11 @@ public class Item {
         if (discount == 0.00)
             return 1.00;
         return discount;
+    }
+    public double getVipDiscount(){
+        if(vipDiscount==0.00)
+            return 1.00;
+        return vipDiscount;
     }
     public boolean getIsPromotion(){
         return isPromotion;
@@ -75,4 +87,5 @@ public class Item {
     }
 
     public void setPromotion(boolean is ){this.isPromotion=is;}
+    public void setVipDiscount(double discount){this.vipDiscount=discount;}
 }
