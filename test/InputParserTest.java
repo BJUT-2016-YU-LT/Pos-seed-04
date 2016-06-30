@@ -52,8 +52,10 @@ public class InputParserTest {
         WriteToFile(indexFile, sampleIndex);
 
         String sampleItems = new StringBuilder()
-                .append("[\n")
-                .append("\"ITEM000004\"")
+                .append("{\n")
+                .append("'user':'USER003',\n")
+                .append("'items':[\n")
+                .append("\"ITEM000004\"\n")
                 .append("]")
                 .toString();
         WriteToFile(itemsFile, sampleItems);
@@ -68,6 +70,7 @@ public class InputParserTest {
         assertThat(item.getUnit(), is("个"));
         assertThat(item.getPrice(), is(2.00));
         assertThat(item.getDiscount(), is(0.8));
+        assertThat(inputParser.getUserBar(),is("USER003"));
     }
 
     private void WriteToFile(File file, String content) throws FileNotFoundException {
@@ -81,7 +84,7 @@ public class InputParserTest {
         String sampleIndex = new StringBuilder()
                 .append("{\n")
                 .append("'ITEM000004':{\n")
-                .append("\"name\": '电池',\n")
+                .append("\"name\":'电池',\n")
                 .append("\"unit\": '个',\n")
                 .append("\"price\": 2.00\n")
                 .append("}\n")
@@ -90,8 +93,10 @@ public class InputParserTest {
         WriteToFile(indexFile, sampleIndex);
 
         String sampleItems = new StringBuilder()
-                .append("[\n")
-                .append("\"ITEM000004\"")
+               .append("{\n")
+                .append("'user':'USER0001',\n")
+                .append("'items':[\n")
+                .append("\"ITEM000004\"\n")
                 .append("]")
                 .toString();
         WriteToFile(itemsFile, sampleItems);
@@ -100,6 +105,7 @@ public class InputParserTest {
         ArrayList<Item> items = inputParser.parser().getItems();
         Item item = items.get(0);
         assertThat(item.getDiscount(), is(1.00));
+        assertThat(inputParser.getUserBar(),is("USER0001"));
     }
 
     @Test
@@ -117,8 +123,10 @@ public class InputParserTest {
         WriteToFile(indexFile, sampleIndex);
 
         String sampleItems = new StringBuilder()
-                .append("[\n")
-                .append("\"ITEM000004\"")
+                .append("{\n")
+                .append("'user':'USER0002',\n")
+                .append("'items':[\n")
+                .append("\"ITEM000004\"\n")
                 .append("]")
                 .toString();
         WriteToFile(itemsFile, sampleItems);
@@ -133,5 +141,41 @@ public class InputParserTest {
         assertThat(item.getUnit(), is("个"));
         assertThat(item.getPrice(), is(2.00));
         assertThat(item.getIsPromotion(), is(true));
+        assertThat(inputParser.getUserBar(),is("USER0002"));
+    }
+    @Test
+    public void testParseJsonWhenVIPinvolved() throws Exception{
+        String sampleIndex = new StringBuilder()
+                .append("{\n")
+                .append("'ITEM000004':{\n")
+                .append("\"name\": '电池',\n")
+                .append("\"unit\": '个',\n")
+                .append("\"price\": 2.00,\n")
+                .append("\"vipDiscount\": 0.90\n")
+                .append("}\n")
+                .append("}\n")
+                .toString();
+        WriteToFile(indexFile, sampleIndex);
+
+        String sampleItems = new StringBuilder()
+                .append("{\n")
+                .append("'user':'USER0002',\n")
+                .append("'items':[\n")
+                .append("\"ITEM000004\"\n")
+                .append("]")
+                .toString();
+        WriteToFile(itemsFile, sampleItems);
+
+        InputParser inputParser = new InputParser(indexFile, itemsFile);
+        ArrayList<Item> items = inputParser.parser().getItems();
+
+        assertThat(items.size(), is(1));
+        Item item = items.get(0);
+        assertThat(item.getName(), is("电池"));
+        assertThat(item.getBarcode(), is("ITEM000004"));
+        assertThat(item.getUnit(), is("个"));
+        assertThat(item.getPrice(), is(2.00));
+        assertThat(item.getVipDiscount(), is(0.90));
+        assertThat(inputParser.getUserBar(),is("USER0002"));
     }
 }
